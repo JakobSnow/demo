@@ -1,0 +1,785 @@
+{
+    "templates": [
+      {
+        "templateId": "genericConfiguration",
+        "name": "Generische Konfiguration",
+        "description": "Ein generisches Template für Service-Konfiguration mit anpassbaren Feldern",
+        "fields": [
+          {
+            "id": "FieldA",
+            "label": "Feldname",
+            "type": "string",
+            "defaultValue": "",
+            "required": false,
+            "hidden": true,
+            "validation": {
+              "pattern": "^[a-zA-Z0-9 ]+$"
+            },
+            "conditions": [
+              {
+                "field": "FieldB",
+                "condition": "CONTAINS_EXPLICIT_VALUE",
+                "value": "Blubb",
+                "hidden": false,
+                "required": true
+              }
+            ]
+          },
+          {
+            "id": "FieldB",
+            "label": "Feldbeschreibung",
+            "type": "string",
+            "defaultValue": "",
+            "required": true,
+            "hidden": false
+          },
+          {
+            "id": "fieldBoolean",
+            "label": "Boolean-Feld",
+            "type": "boolean",
+            "defaultValue": false,
+            "required": false,
+            "hidden": false
+          },
+          {
+            "id": "fieldInteger",
+            "label": "Integer-Feld",
+            "type": "integer",
+            "defaultValue": 0,
+            "required": false,
+            "hidden": false,
+            "validation": {
+              "min": 0,
+              "max": 100
+            }
+          },
+          {
+            "id": "fieldEnum",
+            "label": "Aufzählungs-Feld",
+            "type": "enum",
+            "defaultValue": "option1",
+            "required": false,
+            "hidden": false,
+            "options": ["option1", "option2", "option3"]
+          }
+        ],
+        "metadata": {
+          "createdDate": "2025-01-28T12:00:00Z",
+          "lastUpdatedDate": "2025-01-28T12:00:00Z",
+          "version": 1
+        }
+      },
+      {
+        "templateId": "userProfile",
+        "name": "Benutzerprofil-Konfiguration",
+        "description": "Konfiguration für Benutzerprofilinformationen",
+        "fields": [
+          {
+            "id": "username",
+            "label": "Benutzername",
+            "type": "string",
+            "defaultValue": "",
+            "required": true,
+            "hidden": false,
+            "validation": {
+              "pattern": "^[a-zA-Z0-9_]{3,20}$"
+            }
+          },
+          {
+            "id": "email",
+            "label": "E-Mail-Adresse",
+            "type": "string",
+            "defaultValue": "",
+            "required": true,
+            "hidden": false,
+            "validation": {
+              "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+            }
+          },
+          {
+            "id": "notificationsEnabled",
+            "label": "Benachrichtigungen aktivieren",
+            "type": "boolean",
+            "defaultValue": true,
+            "required": false,
+            "hidden": false
+          },
+          {
+            "id": "notificationType",
+            "label": "Benachrichtigungstyp",
+            "type": "enum",
+            "defaultValue": "email",
+            "required": false,
+            "hidden": true,
+            "options": ["email", "push", "sms"],
+            "conditions": [
+              {
+                "field": "notificationsEnabled",
+                "condition": "CONTAINS_EXPLICIT_VALUE",
+                "value": "true",
+                "hidden": false,
+                "required": true
+              }
+            ]
+          }
+        ],
+        "metadata": {
+          "createdDate": "2025-01-28T12:00:00Z",
+          "lastUpdatedDate": "2025-01-28T12:00:00Z",
+          "version": 1
+        }
+      },
+      {
+        "templateId": "systemConfig",
+        "name": "Systemkonfiguration",
+        "description": "Technische Einstellungen für die Systemkonfiguration",
+        "fields": [
+          {
+            "id": "serverUrl",
+            "label": "Server-URL",
+            "type": "string",
+            "defaultValue": "https://api.example.com",
+            "required": true,
+            "hidden": false
+          },
+          {
+            "id": "port",
+            "label": "Port",
+            "type": "integer",
+            "defaultValue": 443,
+            "required": true,
+            "hidden": false,
+            "validation": {
+              "min": 1,
+              "max": 65535
+            }
+          },
+          {
+            "id": "timeout",
+            "label": "Timeout (Sekunden)",
+            "type": "integer",
+            "defaultValue": 30,
+            "required": false,
+            "hidden": false,
+            "validation": {
+              "min": 1,
+              "max": 300
+            }
+          },
+          {
+            "id": "debugMode",
+            "label": "Debug-Modus aktivieren",
+            "type": "boolean",
+            "defaultValue": false,
+            "required": false,
+            "hidden": false
+          },
+          {
+            "id": "logLevel",
+            "label": "Log-Level",
+            "type": "enum",
+            "defaultValue": "info",
+            "required": false,
+            "hidden": false,
+            "options": ["error", "warn", "info", "debug", "trace"]
+          }
+        ],
+        "metadata": {
+          "createdDate": "2025-01-28T12:00:00Z",
+          "lastUpdatedDate": "2025-01-28T12:00:00Z",
+          "version": 1
+        }
+      },
+      {
+        "templateId": "conditionalLogic",
+        "name": "Bedingte Logik Demo",
+        "description": "Demonstration der bedingten Anzeigelogik und Validierung",
+        "fields": [
+          {
+            "id": "serviceType",
+            "label": "Service-Typ",
+            "type": "enum",
+            "defaultValue": "basic",
+            "required": true,
+            "hidden": false,
+            "options": ["basic", "advanced", "premium"]
+          },
+          {
+            "id": "basicConfig",
+            "label": "Basis-Konfiguration",
+            "type": "string",
+            "defaultValue": "",
+            "required": false,
+            "hidden": true,
+            "conditions": [
+              {
+                "field": "serviceType",
+                "condition": "CONTAINS_EXPLICIT_VALUE",
+                "value": "basic",
+                "hidden": false,
+                "required": true
+              }
+            ]
+          },
+          {
+            "id": "advancedConfig",
+            "label": "Erweiterte Konfiguration",
+            "type": "string",
+            "defaultValue": "",
+            "required": false,
+            "hidden": true,
+            "conditions": [
+              {
+                "field": "serviceType",
+                "condition": "CONTAINS_EXPLICIT_VALUE",
+                "value": "advanced",
+                "hidden": false,
+                "required": true
+              }
+            ]
+          },
+          {
+            "id": "premiumFeatures",
+            "label": "Premium-Funktionen aktivieren",
+            "type": "boolean",
+            "defaultValue": false,
+            "required": false,
+            "hidden": true,
+            "conditions": [
+              {
+                "field": "serviceType",
+                "condition": "CONTAINS_EXPLICIT_VALUE",
+                "value": "premium",
+                "hidden": false,
+                "required": false
+              }
+            ]
+          },
+          {
+            "id": "featureSelection",
+            "label": "Feature-Auswahl",
+            "type": "enum",
+            "defaultValue": "feature1",
+            "required": false,
+            "hidden": true,
+            "options": ["feature1", "feature2", "feature3"],
+            "conditions": [
+              {
+                "field": "premiumFeatures",
+                "condition": "CONTAINS_EXPLICIT_VALUE",
+                "value": "true",
+                "hidden": false,
+                "required": true
+              }
+            ]
+          }
+        ],
+        "metadata": {
+          "createdDate": "2025-01-28T12:00:00Z",
+          "lastUpdatedDate": "2025-01-28T12:00:00Z",
+          "version": 1
+        }
+      }
+    ],
+    "services": [
+      {
+        "id": "1",
+        "serviceid": "tenantservice",
+        "servicetype": "intern",
+        "name": "Tenant Service",
+        "template": {
+          "templateId": "tenantConfiguration",
+          "name": "Tenant-Konfiguration",
+          "description": "Konfiguration für einen neuen Tenant mit grundlegenden Informationen",
+          "fields": [
+            {
+              "id": "group",
+              "label": "Gruppe",
+              "type": "string",
+              "defaultValue": "",
+              "required": true,
+              "hidden": false,
+              "validation": {
+                "pattern": "^[a-zA-Z0-9\\-_]+$"
+              }
+            },
+            {
+              "id": "availabilityClass",
+              "label": "Verfügbarkeitsklasse",
+              "type": "enum",
+              "defaultValue": "standard",
+              "required": true,
+              "hidden": false,
+              "options": ["standard", "premium", "enterprise"]
+            },
+            {
+              "id": "region",
+              "label": "Region",
+              "type": "enum",
+              "defaultValue": "europe-west3",
+              "required": true,
+              "hidden": false,
+              "options": [
+                "europe-west1",
+                "europe-west3",
+                "europe-west4",
+                "europe-central2",
+                "us-central1",
+                "us-east1",
+                "us-west1",
+                "asia-east1",
+                "asia-southeast1"
+              ]
+            },
+            {
+              "id": "category",
+              "label": "Kategorie",
+              "type": "enum",
+              "defaultValue": "",
+              "required": true,
+              "hidden": false,
+              "options": [
+                "Krankenhaus",
+                "Praxis",
+                "MVZ",
+                "Pflegeeinrichtung",
+                "Apotheke",
+                "Labor",
+                "Sonstige"
+              ]
+            },
+            {
+              "id": "customerName",
+              "label": "Kundenname",
+              "type": "string",
+              "defaultValue": "",
+              "required": true,
+              "hidden": false,
+              "validation": {
+                "pattern": "^[a-zA-Z0-9\\s\\-_.,&()]+$"
+              }
+            },
+            {
+              "id": "subcategory",
+              "label": "Kategorie (detailliert)",
+              "type": "string",
+              "defaultValue": "",
+              "required": false,
+              "hidden": false,
+              "conditions": [
+                {
+                  "field": "category",
+                  "condition": "CONTAINS_EXPLICIT_VALUE",
+                  "value": "Sonstige",
+                  "hidden": false,
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "contactPerson",
+              "label": "Ansprechpartner (Initialer Admin)",
+              "type": "string",
+              "defaultValue": "",
+              "required": true,
+              "hidden": false
+            },
+            {
+              "id": "contactEmail",
+              "label": "E-Mailadresse (Initialer Admin)",
+              "type": "string",
+              "defaultValue": "",
+              "required": true,
+              "hidden": false,
+              "validation": {
+                "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+              }
+            }
+          ],
+          "metadata": {
+            "createdDate": "2025-03-20T12:00:00Z",
+            "lastUpdatedDate": "2025-03-20T12:00:00Z",
+            "version": 1
+          }
+        },
+        "configuration": [1, 2, 3, 4, "b6cf", "43f5", "78b7"]
+      },
+      {
+        "id": "2",
+        "serviceid": "genericService",
+        "servicetype": "customer",
+        "name": "Generischer Service",
+        "template": {
+          "templateId": "genericConfiguration",
+          "name": "Generische Konfiguration",
+          "description": "Ein generisches Template für Service-Konfiguration mit anpassbaren Feldern",
+          "fields": [
+            {
+              "id": "FieldA",
+              "label": "Feldname",
+              "type": "string",
+              "defaultValue": "",
+              "required": false,
+              "hidden": true,
+              "validation": {
+                "pattern": "^[a-zA-Z0-9 ]+$"
+              },
+              "conditions": [
+                {
+                  "field": "FieldB",
+                  "condition": "CONTAINS_EXPLICIT_VALUE",
+                  "value": "Blubb",
+                  "hidden": false,
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "FieldB",
+              "label": "Feldbeschreibung",
+              "type": "string",
+              "defaultValue": "",
+              "required": true,
+              "hidden": false
+            },
+            {
+              "id": "fieldBoolean",
+              "label": "Boolean-Feld",
+              "type": "boolean",
+              "defaultValue": false,
+              "required": false,
+              "hidden": false
+            },
+            {
+              "id": "fieldInteger",
+              "label": "Integer-Feld",
+              "type": "integer",
+              "defaultValue": 0,
+              "required": false,
+              "hidden": false,
+              "validation": {
+                "min": 0,
+                "max": 100
+              }
+            },
+            {
+              "id": "fieldEnum",
+              "label": "Aufzählungs-Feld",
+              "type": "enum",
+              "defaultValue": "option1",
+              "required": false,
+              "hidden": false,
+              "options": ["option1", "option2", "option3"]
+            }
+          ],
+          "metadata": {
+            "createdDate": "2025-01-28T12:00:00Z",
+            "lastUpdatedDate": "2025-01-28T12:00:00Z",
+            "version": 1
+          }
+        },
+        "configuration": []
+      },
+      {
+        "id": "3",
+        "serviceid": "userProfile",
+        "servicetype": "customer",
+        "name": "Benutzer Service",
+        "template": {
+          "templateId": "userProfile",
+          "name": "Benutzerprofil-Konfiguration",
+          "description": "Konfiguration für Benutzerprofilinformationen",
+          "fields": [
+            {
+              "id": "username",
+              "label": "Benutzername",
+              "type": "string",
+              "defaultValue": "",
+              "required": true,
+              "hidden": false,
+              "validation": {
+                "pattern": "^[a-zA-Z0-9_]{3,20}$"
+              }
+            },
+            {
+              "id": "email",
+              "label": "E-Mail-Adresse",
+              "type": "string",
+              "defaultValue": "",
+              "required": true,
+              "hidden": false,
+              "validation": {
+                "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+              }
+            },
+            {
+              "id": "notificationsEnabled",
+              "label": "Benachrichtigungen aktivieren",
+              "type": "boolean",
+              "defaultValue": true,
+              "required": false,
+              "hidden": false
+            },
+            {
+              "id": "notificationType",
+              "label": "Benachrichtigungstyp",
+              "type": "enum",
+              "defaultValue": "email",
+              "required": false,
+              "hidden": true,
+              "options": ["email", "push", "sms"],
+              "conditions": [
+                {
+                  "field": "notificationsEnabled",
+                  "condition": "CONTAINS_EXPLICIT_VALUE",
+                  "value": "true",
+                  "hidden": false,
+                  "required": true
+                }
+              ]
+            }
+          ],
+          "metadata": {
+            "createdDate": "2025-01-28T12:00:00Z",
+            "lastUpdatedDate": "2025-01-28T12:00:00Z",
+            "version": 1
+          }
+        },
+        "configuration": []
+      },
+      {
+        "id": "4",
+        "serviceid": "systemConfig",
+        "servicetype": "customer",
+        "name": "System Service",
+        "template": {
+          "templateId": "systemConfig",
+          "name": "Systemkonfiguration",
+          "description": "Technische Einstellungen für die Systemkonfiguration",
+          "fields": [
+            {
+              "id": "serverUrl",
+              "label": "Server-URL",
+              "type": "string",
+              "defaultValue": "https://api.example.com",
+              "required": true,
+              "hidden": false
+            },
+            {
+              "id": "port",
+              "label": "Port",
+              "type": "integer",
+              "defaultValue": 443,
+              "required": true,
+              "hidden": false,
+              "validation": {
+                "min": 1,
+                "max": 65535
+              }
+            },
+            {
+              "id": "timeout",
+              "label": "Timeout (Sekunden)",
+              "type": "integer",
+              "defaultValue": 30,
+              "required": false,
+              "hidden": false,
+              "validation": {
+                "min": 1,
+                "max": 300
+              }
+            },
+            {
+              "id": "debugMode",
+              "label": "Debug-Modus aktivieren",
+              "type": "boolean",
+              "defaultValue": false,
+              "required": false,
+              "hidden": false
+            },
+            {
+              "id": "logLevel",
+              "label": "Log-Level",
+              "type": "enum",
+              "defaultValue": "info",
+              "required": false,
+              "hidden": false,
+              "options": ["error", "warn", "info", "debug", "trace"]
+            }
+          ],
+          "metadata": {
+            "createdDate": "2025-01-28T12:00:00Z",
+            "lastUpdatedDate": "2025-01-28T12:00:00Z",
+            "version": 1
+          }
+        },
+        "configuration": []
+      },
+      {
+        "id": "5",
+        "serviceid": "conditionalLogic",
+        "servicetype": "customer",
+        "name": "Bedingte Logik Demo Service",
+        "template": {
+          "templateId": "conditionalLogic",
+          "name": "Bedingte Logik Demo",
+          "description": "Demonstration der bedingten Anzeigelogik und Validierung",
+          "fields": [
+            {
+              "id": "serviceType",
+              "label": "Service-Typ",
+              "type": "enum",
+              "defaultValue": "basic",
+              "required": true,
+              "hidden": false,
+              "options": ["basic", "advanced", "premium"]
+            },
+            {
+              "id": "basicConfig",
+              "label": "Basis-Konfiguration",
+              "type": "string",
+              "defaultValue": "",
+              "required": false,
+              "hidden": true,
+              "conditions": [
+                {
+                  "field": "serviceType",
+                  "condition": "CONTAINS_EXPLICIT_VALUE",
+                  "value": "basic",
+                  "hidden": false,
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "advancedConfig",
+              "label": "Erweiterte Konfiguration",
+              "type": "string",
+              "defaultValue": "",
+              "required": false,
+              "hidden": true,
+              "conditions": [
+                {
+                  "field": "serviceType",
+                  "condition": "CONTAINS_EXPLICIT_VALUE",
+                  "value": "advanced",
+                  "hidden": false,
+                  "required": true
+                }
+              ]
+            },
+            {
+              "id": "premiumFeatures",
+              "label": "Premium-Funktionen aktivieren",
+              "type": "boolean",
+              "defaultValue": false,
+              "required": false,
+              "hidden": true,
+              "conditions": [
+                {
+                  "field": "serviceType",
+                  "condition": "CONTAINS_EXPLICIT_VALUE",
+                  "value": "premium",
+                  "hidden": false,
+                  "required": false
+                }
+              ]
+            },
+            {
+              "id": "featureSelection",
+              "label": "Feature-Auswahl",
+              "type": "enum",
+              "defaultValue": "feature1",
+              "required": false,
+              "hidden": true,
+              "options": ["feature1", "feature2", "feature3"],
+              "conditions": [
+                {
+                  "field": "premiumFeatures",
+                  "condition": "CONTAINS_EXPLICIT_VALUE",
+                  "value": "true",
+                  "hidden": false,
+                  "required": true
+                }
+              ]
+            }
+          ],
+          "metadata": {
+            "createdDate": "2025-01-28T12:00:00Z",
+            "lastUpdatedDate": "2025-01-28T12:00:00Z",
+            "version": 1
+          }
+        },
+        "configuration": ["4711"]
+      }
+    ],
+    "configurations": [
+      {
+        "id": "1",
+        "group": "healthcare-group-01",
+        "availabilityClass": "enterprise",
+        "region": "europe-west3",
+        "category": "Krankenhaus",
+        "customerName": "Universitätsklinikum Frankfurt",
+        "contactPerson": "Dr. Marcus Schneider",
+        "contactEmail": "m.schneider@ukf-admin.de"
+      },
+      {
+        "id": "2",
+        "group": "med-practice-group",
+        "availabilityClass": "standard",
+        "region": "europe-central2",
+        "category": "Praxis",
+        "customerName": "Allgemeinarztpraxis Dr. Müller & Partner",
+        "contactPerson": "Dr. Julia Müller",
+        "contactEmail": "info@praxis-mueller.de"
+      },
+      {
+        "id": "3",
+        "group": "mvz-healthcare",
+        "availabilityClass": "premium",
+        "region": "europe-west1",
+        "category": "MVZ",
+        "customerName": "Medizinisches Versorgungszentrum Rhein-Main",
+        "contactPerson": "Sabine Weber",
+        "contactEmail": "s.weber@mvz-rhein-main.de"
+      },
+      {
+        "id": "4",
+        "group": "specialty-clinic",
+        "availabilityClass": "enterprise",
+        "region": "us-east1",
+        "category": "Sonstige",
+        "subcategory": "Spezialklinik für Orthopädie",
+        "customerName": "International Orthopedic Center",
+        "contactPerson": "Thomas Bergmann",
+        "contactEmail": "t.bergmann@ioc-admin.com"
+      },
+      {
+        "id": "43f5",
+        "group": "NeueGruppe",
+        "availabilityClass": "standard",
+        "region": "europe-west3",
+        "category": "Krankenhaus",
+        "customerName": "Neukunde",
+        "subcategory": "aölskdjf",
+        "contactPerson": "ölkasjdföj",
+        "contactEmail": "test@test.de"
+      },
+      {
+        "id": "78b7",
+        "group": "noch-ne-neue-Gruppe",
+        "availabilityClass": "enterprise",
+        "region": "asia-southeast1",
+        "category": "Sonstige",
+        "customerName": "Sonstige Einrichtung am Bach",
+        "subcategory": "Was soll man da?",
+        "contactPerson": "öalksjdfölkj",
+        "contactEmail": "test@test.de"
+      },
+      {
+        "id": "4711"
+      }
+    ]
+  }
+  
